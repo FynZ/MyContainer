@@ -1,4 +1,4 @@
-My Take at crating an IoC container
+My Take at creating an IoC container
 
 TODO :
 
