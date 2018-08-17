@@ -1,0 +1,9 @@
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\bin\Debug\netcoreapp2.0\MyContainer.deps.json
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\bin\Debug\netcoreapp2.0\MyContainer.dll
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\bin\Debug\netcoreapp2.0\MyContainer.pdb
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\obj\Debug\netcoreapp2.0\MyContainer.csprojAssemblyReference.cache
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\obj\Debug\netcoreapp2.0\MyContainer.csproj.CoreCompileInputs.cache
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\obj\Debug\netcoreapp2.0\MyContainer.AssemblyInfoInputs.cache
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\obj\Debug\netcoreapp2.0\MyContainer.AssemblyInfo.cs
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\obj\Debug\netcoreapp2.0\MyContainer.dll
+C:\Users\FynZ\Desktop\Projects\MyContainer\src\MyContainer\MyContainer\obj\Debug\netcoreapp2.0\MyContainer.pdb
