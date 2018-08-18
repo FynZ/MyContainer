@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using MyContainer;
 using MyContainerConsole.SampleClasses.Repositories;
 using MyContainerConsole.SampleClasses.Services;
+using MyContainerConsole.SampleClasses.Utils;
 
 namespace MyContainerConsole
 {
@@ -13,14 +14,18 @@ namespace MyContainerConsole
         {
             IContainer container = new Container();
             
-            container.Register<IUserRepository, UserRepository>();
-            container.Register<IRoleRepository, RoleRepository>();
-            container.Register<IUserService, UserService>();
-            container.Register<IRoleService, RoleService>();
+            container.AddTransient<IUserRepository, UserRepository>();
+            container.AddTransient<IRoleRepository, RoleRepository>();
+            container.AddTransient<IUserService, UserService>();
+            container.AddTransient<IRoleService, RoleService>();
+            
+            container.AddTransient<IMailer, Mailer>(() => new Mailer("test"));
 
-            IRoleRepository roleRepo = container.Get<IRoleRepository>();
-            IRoleService roleService = container.Get<IRoleService>();
-            IUserService userService = container.Get<IUserService>();
+            //IRoleRepository roleRepo = container.Get<IRoleRepository>();
+            //IRoleService roleService = container.Get<IRoleService>();
+            //IUserService userService = container.Get<IUserService>();
+
+            IMailer mailer = container.Get<IMailer>();
         }
     }
 }

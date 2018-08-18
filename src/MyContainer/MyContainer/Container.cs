@@ -16,10 +16,6 @@ namespace MyContainer
             _container = new Dictionary<Type, RegisteredObject>();
         }
 
-        public void Register<TContract, TImplementation>()
-        {
-        }
-
         public void AddTransient<TContract, TImplementation>(Func<object> implementation = null)
         {
             _container.Add(typeof(TContract), new RegisteredObject(typeof(TContract), typeof(TImplementation), LifeTime.Transient, implementation));
@@ -52,10 +48,12 @@ namespace MyContainer
         {
             if (_container.TryGetValue(interfaceType, out RegisteredObject registeredObject))
             {
+                // Provided Instanciation
                 if (registeredObject.HasCustomInstanciation)
                 {
                     return registeredObject.Implementation.Invoke();
                 }
+
                 // We take the most parameterized constructor
                 var constructor = registeredObject.ImplementationType.GetConstructors()
                     .OrderByDescending(x => x.CustomAttributes.Count()).FirstOrDefault();
@@ -80,6 +78,14 @@ namespace MyContainer
             var constructor = t.GetConstructors().First();
             foreach (var param in constructor.GetParameters())
             {
+                if (param.ParameterType.IsValueType)
+                {
+                    if (param.HasDefaultValue)
+                    {
+                        yield return param.DefaultValue;
+                    }
+                }
+
                 yield return GetObject(param.ParameterType);
             }
         }

@@ -6,7 +6,7 @@ namespace MyContainer
 {
     public interface IContainer
     {
-        void Register<TContract, TImplementation>();
+        //void Register<TContract, TImplementation>();
         void RegisterNamespace(string nameSpace);
 
         void AddTransient<TContract, TImplementation>(Func<object> implementation = null);
