@@ -48,6 +48,11 @@ namespace MyContainer
         {
             if (_container.TryGetValue(interfaceType, out RegisteredObject registeredObject))
             {
+                if (registeredObject.LifeTime == LifeTime.Singleton)
+                {
+                    return GetSingletonObject(registeredObject);
+                }
+
                 // Provided Instanciation
                 if (registeredObject.HasCustomInstanciation)
                 {
@@ -63,6 +68,11 @@ namespace MyContainer
                 {
                     var parameters = GetConstructorParameters(registeredObject.ImplementationType);
 
+                    if (registeredObject.LifeTime == LifeTime.Singleton)
+                    {
+                        return registeredObject.SetInstance(
+                            Activator.CreateInstance(registeredObject.ImplementationType, parameters.ToArray()));
+                    }
                     return Activator.CreateInstance(registeredObject.ImplementationType, parameters.ToArray());
                 }
 
@@ -88,6 +98,38 @@ namespace MyContainer
 
                 yield return GetObject(param.ParameterType);
             }
+        }
+
+        private object GetSingletonObject(RegisteredObject registeredObject)
+        {
+            // Instance has already been instanciated, we can return it
+            if (registeredObject.HasSetInstance)
+            {
+                return registeredObject.Instance;
+            }
+
+            // Provided Instanciation
+            if (registeredObject.HasCustomInstanciation)
+            {
+                // Set then return
+                return registeredObject.SetInstance(registeredObject.Implementation.Invoke());
+            }
+
+            var constructor = registeredObject.ImplementationType.GetConstructors()
+                .OrderByDescending(x => x.CustomAttributes.Count()).FirstOrDefault();
+
+            // Parameterized Constructor
+            if (constructor != null && constructor.GetParameters().Length > 0)
+            {
+                var parameters = GetConstructorParameters(registeredObject.ImplementationType);
+
+                // Set then return
+                return registeredObject.SetInstance(
+                    Activator.CreateInstance(registeredObject.ImplementationType, parameters.ToArray()));
+            }
+
+            // Parameterless Constructor
+            return registeredObject.SetInstance(Activator.CreateInstance(registeredObject.ImplementationType));
         }
     }
 }

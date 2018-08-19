@@ -19,13 +19,19 @@ namespace MyContainerConsole
             container.AddTransient<IUserService, UserService>();
             container.AddTransient<IRoleService, RoleService>();
             
-            container.AddTransient<IMailer, Mailer>(() => new Mailer("test"));
+            container.AddSingleton<IMailer, Mailer>(() => new Mailer("test"));
 
             //IRoleRepository roleRepo = container.Get<IRoleRepository>();
             //IRoleService roleService = container.Get<IRoleService>();
             //IUserService userService = container.Get<IUserService>();
 
             IMailer mailer = container.Get<IMailer>();
+            IMailer mail2 = container.Get<IMailer>();
+
+            if (mailer.Equals(mail2))
+            {
+                Console.WriteLine("Given mail have same reference");
+            }
         }
     }
 }
